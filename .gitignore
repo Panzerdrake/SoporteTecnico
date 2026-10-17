@@ -1,0 +1,14 @@
+/bin/
+*.class
+
+.metadata/
+.settings/
+*.launch
+
+.env
+.env.*
+config.properties
+secrets.properties
+
+*.log
+*.tmp
