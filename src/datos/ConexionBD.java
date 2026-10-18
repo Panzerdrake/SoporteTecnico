@@ -9,25 +9,27 @@ public class ConexionBD {
     private static final String URL =
             "jdbc:mysql://localhost:3306/soporte_tecnico";
 
-    private static final String USUARIO = System.getenv("MYSQL_USER");
-    private static final String CONTRASENA = System.getenv("MYSQL_PASSWORD");
+    private static final String USUARIO =
+            System.getenv("MYSQL_USER");
 
-    public static Connection conectar() {
-        Connection conexion = null;
+    private static final String CONTRASENA =
+            System.getenv("MYSQL_PASSWORD");
 
-        try {
-            conexion = DriverManager.getConnection(
-                    URL,
-                    USUARIO,
-                    CONTRASENA
+    public static Connection conectar() throws SQLException {
+
+        if (USUARIO == null || CONTRASENA == null) {
+            throw new SQLException(
+                "No se configuraron las credenciales de MySQL."
             );
-
-            System.out.println("Conexion a MySQL realizada correctamente.");
-
-        } catch (SQLException e) {
-            System.out.println("Error al conectar con MySQL:");
-            System.out.println(e.getMessage());
         }
+
+        Connection conexion = DriverManager.getConnection(
+                URL,
+                USUARIO,
+                CONTRASENA
+        );
+
+        System.out.println("Conexion a MySQL realizada correctamente.");
 
         return conexion;
     }
