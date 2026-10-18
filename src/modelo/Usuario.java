@@ -1,6 +1,7 @@
+
 package modelo;
 
-public class Usuario {
+public abstract class Usuario {
 
     private int idUsuario;
     private String nombre;
@@ -29,4 +30,6 @@ public class Usuario {
     public String getRol() {
         return rol;
     }
+
+    public abstract String obtenerTipoUsuario();
 }

@@ -1,3 +1,4 @@
+
 package datos;
 
 import java.sql.Connection;
@@ -6,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import modelo.Usuario;
+import modelo.Cliente;
+import modelo.Tecnico;
+import modelo.Administrador;
 
 public class UsuarioDAO {
 
@@ -28,12 +32,27 @@ public class UsuarioDAO {
             try (ResultSet resultado = sentencia.executeQuery()) {
 
                 if (resultado.next()) {
-                    return new Usuario(
-                        resultado.getInt("id_usuario"),
-                        resultado.getString("nombre"),
-                        resultado.getString("email"),
-                        resultado.getString("rol")
-                    );
+
+                    int id = resultado.getInt("id_usuario");
+                    String nombre = resultado.getString("nombre");
+                    String correo = resultado.getString("email");
+                    String rol = resultado.getString("rol");
+
+                    switch (rol) {
+
+                        case "CLIENTE":
+                            return new Cliente(id, nombre, correo);
+
+                        case "TECNICO":
+                            return new Tecnico(id, nombre, correo);
+
+                        case "ADMINISTRADOR":
+                            return new Administrador(id, nombre, correo);
+
+                        default:
+                            System.out.println("Rol desconocido: " + rol);
+                            return null;
+                    }
                 }
             }
 
